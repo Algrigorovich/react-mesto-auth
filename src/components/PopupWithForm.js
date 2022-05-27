@@ -4,7 +4,6 @@ const PopupWithForm = ({
   title,
   name,
   onSubmit,
-  children,
   buttonText
 }) => {
 
@@ -21,7 +20,6 @@ const PopupWithForm = ({
           id={`${name}-form`}
           onSubmit={onSubmit}
         >
-          {children}
           <button className="form__submit" type="submit">
             {buttonText}
           </button>

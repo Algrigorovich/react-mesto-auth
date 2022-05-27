@@ -23,7 +23,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
@@ -109,7 +109,7 @@ function App() {
   };
 
   // Авторизация
-  const onRegister = ({password, email}) => {
+  const handleRegister = ({password, email}) => {
     auth.register(email, password)
      .then(res => {
 
@@ -120,7 +120,7 @@ function App() {
     });
   };
 
-  const onLogin = ({password, email}) => {
+  const handleLogin = ({password, email}) => {
     auth.authorize(email, password)
       .then(res => {
         localStorage.setItem("jwt", res.token);
@@ -133,7 +133,7 @@ function App() {
       });
   };
 
-  const onSignOut = () => {
+  const handleSignOut = () => {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
     history.push("/sign-in");
@@ -155,7 +155,7 @@ function App() {
       }
     }
     tokenCheck();
-  }, [history]);
+  }, [history, loggedIn]);
 
 
 
@@ -163,7 +163,8 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header onSignOut={onSignOut}/>
+          <Header onSignOut={handleSignOut}/>
+
           <Switch>
             <ProtectedRoute
               onEditAvatarClick={handleEditAvatarClick}
@@ -180,23 +181,19 @@ function App() {
             />
 
             <Route path="/sign-in">
-              <Login buttonText="Войти" onLogin={onLogin}/>
+              <Login onLogin={handleLogin}/>
             </Route>
 
             <Route path="/sign-up">
-              <Register buttonText="Зарегистрироваться" onRegister={onRegister}/>
+              <Register onRegister={handleRegister}/>
             </Route>
 
             <Route>
-                {loggedIn ? (
-                  <Redirect to="/" />
-                ) : (
-                  <Redirect to="/sign-up" />
-                )}
-            </Route>
+              { loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+           </Route>
           </Switch>
 
-         {loggedIn && <Footer />}
+          {loggedIn && <Footer />}
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}

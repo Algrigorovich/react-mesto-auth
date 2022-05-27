@@ -1,12 +1,11 @@
 import {useState} from 'react';
 
-const Login = ({buttonText, onLogin}) => {
+const Login = ({onLogin}) => {
   const [formValues, setFormValues] = useState({ password: '', email: '' });
 
   function handleSubmit(e) {
     e.preventDefault();
     onLogin(formValues);
-    console.log(formValues, 'formValues')
     e.target.reset();
   }
   function handleChange(e) {
@@ -50,7 +49,7 @@ const Login = ({buttonText, onLogin}) => {
           />
         </label>
         <button className="form__submit form__submit_place_page" type="submit">
-          {buttonText}
+        Войти
         </button>
       </form>
     </div>

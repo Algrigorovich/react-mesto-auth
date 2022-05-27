@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {useState} from 'react';
 
-const Register = ({buttonText, onRegister}) => {
+const Register = ({onRegister}) => {
   const [formValues, setFormValues] = useState({ password: '', email: '' });
 
   function handleSubmit(e) {
@@ -50,7 +50,7 @@ const Register = ({buttonText, onRegister}) => {
           />
         </label>
         <button className="form__submit form__submit_place_page" type="submit">
-          {buttonText}
+          Зарегистрироваться
         </button>
         <p className="form__helper">Уже зарегистрированы? <Link className="form__link" to="/sign-in">Войти</Link></p>
       </form>

@@ -1,7 +1,7 @@
 import logo from '../images/logo.svg';
 import { Link, Switch, Route } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({email, onSignOut}) => {
   return (
     <header className="header page__header">
       <a href="/" className="logo">
@@ -16,8 +16,8 @@ const Header = () => {
         </Route>
         <Route path="/">
           <div className="header__wrapper">
-              <p className="header__email"></p>
-              <Link className="header__link header__link_exit" to="/sign-in">
+              <p className="header__email">{email}</p>
+              <Link className="header__link header__link_exit" to="/sign-in" onClick={onSignOut}>
                   Выйти
               </Link>
           </div>
