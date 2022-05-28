@@ -5,7 +5,7 @@ const handleResponse = (res) => {
     return res.json();
   }
   return res.json().then((res) => {
-    return Promise.reject(`Ошибка: ${res.error}`);
+    return Promise.reject(`Ошибка: ${res.error === undefined ? res.message : res.error}`);
   });
 };
 

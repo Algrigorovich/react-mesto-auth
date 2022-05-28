@@ -6,12 +6,13 @@ const Login = ({onLogin}) => {
   function handleSubmit(e) {
     e.preventDefault();
     onLogin(formValues);
-    e.target.reset();
   }
+
   function handleChange(e) {
     const {name, value} = e.target;
     setFormValues((prevState) => ({...prevState, [name]: value}));
   }
+
   return (
     <div className="page__content">
       <h1 className="page__title">Вход</h1>

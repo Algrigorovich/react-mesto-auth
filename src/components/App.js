@@ -30,13 +30,15 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    Promise.all([api.getProfileData(), api.getInitialCards()])
+    if (loggedIn) {
+      Promise.all([api.getProfileData(), api.getInitialCards()])
       .then(([user, cardList]) => {
         setCurrentUser(user);
         setCards(cardList);
       })
       .catch((err) => console.log(err));
-  }, []);
+    }
+  }, [loggedIn]);
 
   const handleUpdateUser = ({name, about}) => {
     api
@@ -139,7 +141,11 @@ function App() {
         setEmail(email);
         history.push('/');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setInfoTooltipPopupOpen(true);
+        setIsSuccess(false);
+        console.log(err);
+      })
   };
 
   const handleSignOut = () => {
@@ -150,8 +156,8 @@ function App() {
 
   useEffect(() => {
     const tokenCheck = () => {
-      if (localStorage.getItem('jwt')) {
-        let jwt = localStorage.getItem('jwt');
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
         auth
           .getContent(jwt)
           .then((res) => {
@@ -188,11 +194,11 @@ function App() {
           />
 
           <Route path="/sign-in">
-            <Login onLogin={handleLogin} />
+            <Login onLogin={handleLogin}/>
           </Route>
 
           <Route path="/sign-up">
-            <Register onRegister={handleRegister} />
+            <Register onRegister={handleRegister}/>
           </Route>
 
           <Route>{loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}</Route>

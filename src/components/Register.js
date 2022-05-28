@@ -7,12 +7,13 @@ const Register = ({onRegister}) => {
   function handleSubmit(e) {
     e.preventDefault();
     onRegister(formValues);
-    e.target.reset();
   }
+
   function handleChange(e) {
     const {name, value} = e.target;
     setFormValues((prevState) => ({...prevState, [name]: value}));
   }
+
   return (
     <div className="page__content">
       <h1 className="page__title">Регистрация</h1>
