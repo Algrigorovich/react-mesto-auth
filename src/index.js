@@ -8,10 +8,10 @@ const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
-  // <StrictMode> со строгим режимом не работает почему то
     <BrowserRouter>
-      <App />
+      <StrictMode>
+        <App />
+      </StrictMode>
     </BrowserRouter>
-  // </StrictMode>
 );
 
