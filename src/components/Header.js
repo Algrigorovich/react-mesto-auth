@@ -1,5 +1,5 @@
 import logo from '../images/logo.svg';
-import { Link, Switch, Route } from 'react-router-dom';
+import {Link, Switch, Route} from 'react-router-dom';
 
 const Header = ({email, onSignOut}) => {
   return (
@@ -8,20 +8,24 @@ const Header = ({email, onSignOut}) => {
         <img className="logo__img" src={logo} alt="Логотип" />
       </a>
       <Switch>
-        <Route>
-          <Link to="/sign-in" className="header__link">Войти</Link>
+        <Route exact path="/sign-up">
+          <Link to="/sign-in" className="header__link">
+            Войти
+          </Link>
         </Route>
-        <Route>
-          <Link to="/sign-up" className="header__link">Регистрация</Link>
+        <Route exact path="/sign-in">
+          <Link to="/sign-up" className="header__link">
+            Регистрация
+          </Link>
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <div className="header__wrapper">
-              <p className="header__email">{email}</p>
-              <Link className="header__link header__link_exit" to="/sign-in" onClick={onSignOut}>
-                  Выйти
-              </Link>
+            <p className="header__email">{email}</p>
+            <Link className="header__link header__link_exit" to="/sign-in" onClick={onSignOut}>
+              Выйти
+            </Link>
           </div>
-      </Route>
+        </Route>
       </Switch>
     </header>
   );

@@ -2,10 +2,10 @@ import PopupWithForm from './PopupWithForm';
 import {useState, useEffect} from 'react';
 
 const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
-  const [formValues, setFormValues] = useState({ name: '', link: '' });
+  const [formValues, setFormValues] = useState({name: '', link: ''});
 
   useEffect(() => {
-    setFormValues({ name: '', link: '' });
+    setFormValues({name: '', link: ''});
   }, [isOpen]);
 
   function handleSubmit(e) {
@@ -16,7 +16,7 @@ const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
 
   function handleChange(e) {
     const {name, value} = e.target;
-    setFormValues(prevState => ({ ...prevState, [name]: value }));
+    setFormValues((prevState) => ({...prevState, [name]: value}));
   }
 
   return (

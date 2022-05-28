@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useState} from 'react';
 
 const Register = ({onRegister}) => {
-  const [formValues, setFormValues] = useState({ password: '', email: '' });
+  const [formValues, setFormValues] = useState({password: '', email: ''});
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -11,18 +11,12 @@ const Register = ({onRegister}) => {
   }
   function handleChange(e) {
     const {name, value} = e.target;
-    setFormValues(prevState => ({ ...prevState, [name]: value }));
+    setFormValues((prevState) => ({...prevState, [name]: value}));
   }
   return (
     <div className="page__content">
       <h1 className="page__title">Регистрация</h1>
-      <form
-          action="/"
-          method="post"
-          className="form page__form"
-          name="registration"
-          onSubmit={handleSubmit}
-        >
+      <form action="/" method="post" className="form page__form" name="registration" onSubmit={handleSubmit}>
         <label htmlFor="email" className="form__field">
           <input
             value={formValues.email || ''}
@@ -52,9 +46,14 @@ const Register = ({onRegister}) => {
         <button className="form__submit form__submit_place_page" type="submit">
           Зарегистрироваться
         </button>
-        <p className="form__helper">Уже зарегистрированы? <Link className="form__link" to="/sign-in">Войти</Link></p>
+        <p className="form__helper">
+          Уже зарегистрированы?{' '}
+          <Link className="form__link" to="/sign-in">
+            Войти
+          </Link>
+        </p>
       </form>
     </div>
-  )
-}
+  );
+};
 export default Register;

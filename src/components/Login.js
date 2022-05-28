@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 const Login = ({onLogin}) => {
-  const [formValues, setFormValues] = useState({ password: '', email: '' });
+  const [formValues, setFormValues] = useState({password: '', email: ''});
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -10,18 +10,12 @@ const Login = ({onLogin}) => {
   }
   function handleChange(e) {
     const {name, value} = e.target;
-    setFormValues(prevState => ({ ...prevState, [name]: value }));
+    setFormValues((prevState) => ({...prevState, [name]: value}));
   }
   return (
     <div className="page__content">
       <h1 className="page__title">Вход</h1>
-      <form
-          action="/"
-          method="post"
-          className="form page__form"
-          name="login"
-          onSubmit={handleSubmit}
-        >
+      <form action="/" method="post" className="form page__form" name="login" onSubmit={handleSubmit}>
         <label htmlFor="email" className="form__field">
           <input
             value={formValues.email || ''}
@@ -49,10 +43,10 @@ const Login = ({onLogin}) => {
           />
         </label>
         <button className="form__submit form__submit_place_page" type="submit">
-        Войти
+          Войти
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 export default Login;

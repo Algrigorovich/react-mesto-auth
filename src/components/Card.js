@@ -2,15 +2,7 @@ import trash from '../images/trash.svg';
 import {useContext} from 'react';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
-const Card = ({
-  card,
-  onCardClick,
-  onCardLike,
-  onCardDelete,
-  name,
-  link,
-  likes
-}) => {
+const Card = ({card, onCardClick, onCardLike, onCardDelete, name, link, likes}) => {
   const currentUser = useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
