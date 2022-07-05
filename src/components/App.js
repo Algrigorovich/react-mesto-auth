@@ -12,7 +12,7 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
-import * as auth from '../utils/auth';
+import auth from '../utils/auth';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
 
@@ -154,24 +154,27 @@ function App() {
     history.push('/sign-in');
   };
 
+
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setEmail(res.user.email);
+            history.push('/');
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+  tokenCheck();
+
   useEffect(() => {
-    const tokenCheck = () => {
-      const jwt = localStorage.getItem('jwt');
-      if (jwt) {
-        auth
-          .getContent(jwt)
-          .then((res) => {
-            if (res) {
-              setLoggedIn(true);
-              setEmail(res.data.email);
-              history.push('/');
-            }
-          })
-          .catch((err) => console.error(err));
-      }
-    };
     tokenCheck();
-  }, [history, loggedIn]);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

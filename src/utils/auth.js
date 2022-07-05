@@ -1,43 +1,58 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
-
-const handleResponse = (res) => {
-  if (res.ok) {
-    return res.json();
+class Auth {
+  constructor({baseUrl, headers}) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
-  return res.json().then((res) => {
-    return Promise.reject(`Ошибка: ${res.error === undefined ? res.message : res.error}`);
-  });
-};
+  _handleResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return res.json().then((res) => {
+      return Promise.reject(`Ошибка: ${res.error === undefined ? res.message : res.error}`);
+    });
+  };
 
-export const register = (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({email, password}),
-  }).then(handleResponse);
-};
+  register(email, password) {
+    return fetch(`${this._baseUrl}/signup`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email, password}),
+    }).then(this.handleResponse);
+  };
 
-export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({email, password}),
-  }).then(handleResponse);
-};
+  authorize(email, password) {
+    return fetch(`${this._baseUrl}/signin`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({email, password}),
+    }).then(this._handleResponse);
+  };
 
-export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(handleResponse);
-};
+  getContent(token) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    }).then(this._handleResponse);
+  };
+}
+
+const auth = new Auth({
+  baseUrl: 'http://localhost:3001',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  }
+});
+
+export default auth;
