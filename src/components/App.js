@@ -33,6 +33,7 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getProfileData(), api.getInitialCards()])
       .then(([user, cardList]) => {
+        console.log(user, 'context user')
         setCurrentUser(user);
         setCards(cardList);
       })
@@ -61,7 +62,8 @@ function App() {
   };
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    console.log(card, 'card handle like')
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     const likeAction = isLiked ? api.deleteCardLike(card._id) : api.setCardLike(card._id);
 
     likeAction
@@ -154,7 +156,6 @@ function App() {
     history.push('/sign-in');
   };
 
-
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
@@ -163,14 +164,13 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setEmail(res.user.email);
+            setEmail(res.email);
             history.push('/');
           }
         })
         .catch((err) => console.error(err));
     }
   };
-  tokenCheck();
 
   useEffect(() => {
     tokenCheck();

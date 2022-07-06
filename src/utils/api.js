@@ -12,7 +12,6 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
     }).then(this._handleResponse);
   }
@@ -21,7 +20,6 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
     }).then(this._handleResponse);
   }
@@ -31,7 +29,6 @@ class Api {
       method: 'PATCH',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
       body: JSON.stringify({
         name,
@@ -45,7 +42,6 @@ class Api {
       method: 'POST',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
       body: JSON.stringify({
         name,
@@ -59,7 +55,6 @@ class Api {
       method: 'DELETE',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
     }).then(this._handleResponse);
   }
@@ -69,7 +64,6 @@ class Api {
       method: 'DELETE',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       }
     }).then(this._handleResponse);
   }
@@ -79,7 +73,6 @@ class Api {
       method: 'PUT',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       }
     }).then(this._handleResponse);
   }
@@ -89,7 +82,6 @@ class Api {
       method: 'PATCH',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
       body: JSON.stringify({
         avatar: avatar,
@@ -103,6 +95,7 @@ const api = new Api({
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('jwt')}`,
   }
 });
 

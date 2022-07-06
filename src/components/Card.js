@@ -4,8 +4,9 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 const Card = ({card, onCardClick, onCardLike, onCardDelete, name, link, likes}) => {
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = card.owner._id === currentUser._id;
-  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  const isOwn = card.owner === currentUser._id;
+  const isLiked = card.likes.some((i) => i === currentUser._id);
+
 
   const cardDeleteButtonClassName = `gallery-item__delete ${
     isOwn ? 'gallery-item__delete_visible' : 'gallery-item__delete_hidden'
