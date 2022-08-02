@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import api from '../utils/api'; // спасибо, видимо гит не посчитал переименование за изменение, поправил
+import api from '../utils/api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
